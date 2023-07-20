@@ -1,6 +1,5 @@
 > https://web3.hashnode.com/solidity-tutorial-learn-how-to-build-your-first-smart-contract
 
-
 This Solidity tutorial will guide you on how to write your first [smart contract](https://web3.hashnode.com/glossary/what-are-smart-contracts).
 
 ## Prerequisites
