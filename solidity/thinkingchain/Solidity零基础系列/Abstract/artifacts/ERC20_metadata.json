@@ -1,0 +1,171 @@
+{
+	"compiler": {
+		"version": "0.8.6+commit.11564f7e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "Transfer",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "balanceOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "mint",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "name",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "symbol",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalSupply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"solidity/thinkingchain/Solidity零基础系列/Abstract/ERC20.sol": "ERC20"
+		},
+		"evmVersion": "berlin",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"hardhat/console.sol": {
+			"keccak256": "0x7434453e6d3b7d0e5d0eb7846ffdbc27f0ccf3b163591263739b628074dc103a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://49355f780520494d1d5a0f01858385e51bb5280ce0ecfb960f16995065dca395",
+				"dweb:/ipfs/QmSwJ6C5QLz6xKeQZS8wbwjU1KxRFTYfwbGmtzisd5sRW4"
+			]
+		},
+		"solidity/thinkingchain/Solidity零基础系列/Abstract/ERC20.sol": {
+			"keccak256": "0x3eb304d57df293ebb914876545dae9dce2b14dec2686d587e7d257e4d47ef58a",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://e0af115285dbca345cb3c25f99feb4a57dde7e92663a2b4e4240c771e3357b4c",
+				"dweb:/ipfs/QmThox9f36mKoykS84JQPxbo9tnr6BaKY1p5J5ByoWihvQ"
+			]
+		},
+		"solidity/thinkingchain/Solidity零基础系列/Abstract/ERC20Base.sol": {
+			"keccak256": "0x9ca803443099b9a1af401185860dda62af938e94ea0aebe694804fa43b3b3893",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://dd88d8739694659d4125e9cd0e0611046130ed150d1b69dcb958e2c5d563f2e5",
+				"dweb:/ipfs/QmVerxCsic79m5fza2F6Wd2eCz4uv8ZzVBbPGVeCoFL7BE"
+			]
+		},
+		"solidity/thinkingchain/Solidity零基础系列/Abstract/IERC20.sol": {
+			"keccak256": "0xc89953d4818f35f0741e8610fc8b730ac2dd164f345232fbfcd8a67bc2568843",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://97a9c14f6b1eccd727d36d6039f17e3fa9e832db88d7f1f5b20d3fd631408e69",
+				"dweb:/ipfs/Qmc2T9QfKq3nbdPnb1wnLMLEtUoPbznkLB6xhABQZsXStB"
+			]
+		}
+	},
+	"version": 1
+}
