@@ -2,20 +2,6 @@
 
 > 主要包括学习资料和示例的收集，方便持续的学习和巩固
 
-### 分类：
-
-#### solidity
-
-> solidity 语言学习
-
-#### ethers
-
-> ethers 库使用
-
-#### smart contract
-
-> contract 相关概念学习
-
 #### blockchain
 
 https://www.preethikasireddy.com/post/the-architecture-of-a-web-3-0-application
