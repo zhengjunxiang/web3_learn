@@ -1,0 +1,9 @@
+{
+  "name": "52_EIP712",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^6.12.1"
+  }
+}
