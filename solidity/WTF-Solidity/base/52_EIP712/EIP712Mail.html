@@ -6,18 +6,30 @@
   <title>Document</title>
 </head>
 <body>
+  <input type="text" id="content" />
   <button id="signBtn">sign</button>
   <button id="verifyBtn">verify</button>
+  <span id="result"></span>
+
+  <button id="getContents">Get Contents</button>
+  <span id="contents"></span>
+
   <script type = "module">
     import { ethers, JsonRpcProvider } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.8.0/ethers.js";
 
     const signBtn = document.getElementById("signBtn");
     const verifyBtn = document.getElementById("verifyBtn");
+    const content = document.getElementById("content");
+    const result = document.getElementById("result");
+    const getContentsDom = document.getElementById("getContents");
+    const contents = document.getElementById("contents");
+
 
     const contractAddress = '0x4E8E94dEd0E7786f5997235A92f93EbFA63F97A9';
 
     signBtn.addEventListener(`click`, sign)
     verifyBtn.addEventListener(`click`, verify)
+    getContentsDom.addEventListener(`click`, getContents)
 
     // const { ethers, JsonRpcProvider } = require('ethers');
     // 将合约部署在 hardhat node 本地链上
@@ -27,143 +39,152 @@
     // const privateKey = `8f8a6912d287c273bede91f7597067c82b98ecd4fcedee5e43c6cbf96fe079b7`
     // const wallet = new ethers.Wallet(privateKey, provider);
     const abi = [
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "from",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "contents",
-						"type": "string"
-					}
-				],
-				"internalType": "struct EIP712Mail.Mail",
-				"name": "mail",
-				"type": "tuple"
-			},
-			{
-				"internalType": "address",
-				"name": "signer",
-				"type": "address"
-			},
-			{
-				"internalType": "uint8",
-				"name": "v",
-				"type": "uint8"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "r",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "s",
-				"type": "bytes32"
-			}
-		],
-		"name": "verify",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "DOMAIN_SEPARATOR",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "EIP712DOMAIN_TYPEHASH",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "email",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "from",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "contents",
-						"type": "string"
-					}
-				],
-				"internalType": "struct EIP712Mail.Mail",
-				"name": "mail",
-				"type": "tuple"
-			}
-		],
-		"name": "hashStruct",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	}
-]
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "contents",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct EIP712Mail.Mail",
+            "name": "mail",
+            "type": "tuple"
+          },
+          {
+            "internalType": "address",
+            "name": "signer",
+            "type": "address"
+          },
+          {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32"
+          }
+        ],
+        "name": "verify",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "DOMAIN_SEPARATOR",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "EIP712DOMAIN_TYPEHASH",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "email",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "contents",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct EIP712Mail.Mail",
+            "name": "mail",
+            "type": "tuple"
+          }
+        ],
+        "name": "hashStruct",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      }
+    ]
+    let signParts = {}
+
+    // The data to sign
+    // 自行构造一个结构体的值
+    const value = {
+        from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+        to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+        contents: ''
+    };
 
     async function sign() {
         // 获得provider
@@ -189,14 +210,8 @@
                 {name: 'contents', type: 'string'}
             ]
         };
-        // The data to sign
-        // 自行构造一个结构体的值
-        const value = {
-            from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
-            to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
-            contents: 'xyyme'
-        };
 
+        value.contents = content.value
         const signer = await provider.getSigner()
         const signature = await signer.signTypedData(
             domain,
@@ -205,21 +220,45 @@
         );
 
         // 将签名分割成 v r s 的格式
-        let signParts = ethers.Signature.from(signature);
+        signParts = ethers.Signature.from(signature);
         console.log(">>> Signature:", signParts);
+
         // 打印签名本身
-        console.log(signature);
+        console.log('signature: ', signature);
     }
 
     async function verify() {
       // 获得provider
       const provider = new ethers.BrowserProvider(window.ethereum)
-      const account = await ethereum.request({ method: 'eth_requestAccounts' })[0];
-      const signer = await provider.getSigner(account)
-      console.log('signer', signer)
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      console.log('accounts', accounts)
+      const signer = await provider.getSigner(accounts[0])
+
+      value.contents = content.value
       const contract = new ethers.Contract(contractAddress, abi, signer);
-      // const vaild = await contract.verify(signature)
-      // cosnole.log('vaild', vaild)
+      contract.verify(
+        value,
+        accounts[0],
+        signParts.v,
+        signParts.r,
+        signParts.s,
+      ).then((vaild) => {
+        console.log('vaild', vaild)
+        result.innerHTML = vaild
+      }).catch((err) => {
+        console.error('err', err)
+      })
+    }
+
+    async function getContents() {
+      // 获得provider
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      const signer = await provider.getSigner(accounts[0])
+
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+      const vaild = await contract.email()
+      contents.innerHTML = vaild
     }
   </script>
 </body>
