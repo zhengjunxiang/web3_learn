@@ -15,7 +15,7 @@
   <span id="contents"></span>
 
   <script type = "module">
-    import { ethers, JsonRpcProvider } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.8.0/ethers.js";
+    import { ethers, JsonRpcProvider, Interface } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.8.0/ethers.js";
 
     const signBtn = document.getElementById("signBtn");
     const verifyBtn = document.getElementById("verifyBtn");
@@ -177,6 +177,19 @@
       }
     ]
     let signParts = {}
+
+    // Create an Interface instance
+    const iface = new Interface(abi);
+
+    console.log('iface', iface)
+
+    // 转换为人类可读的 ABI
+    // 过滤掉构造函数并格式化其他 ABI 片段
+    const humanReadableAbi = iface.fragments
+        .filter(fragment => fragment.type !== 'constructor')
+        .map(fragment => fragment.format());
+
+    console.log('humanReadableAbi', humanReadableAbi);
 
     // The data to sign
     // 自行构造一个结构体的值

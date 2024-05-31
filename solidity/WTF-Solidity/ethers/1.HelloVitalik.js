@@ -1,7 +1,7 @@
 // 导入ethers包
-import { ethers } from "ethers";
+// import { ethers } from "ethers";
 // playcode免费版不能安装ethers，用这条命令，需要从网络上import包（把上面这行注释掉）
-// import { ethers } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.2.3/ethers.js";
+import { ethers } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.8.1/ethers.js";
 
 // 利用ethers默认的Provider连接以太坊网络
 // const provider = new ethers.getDefaultProvider();
