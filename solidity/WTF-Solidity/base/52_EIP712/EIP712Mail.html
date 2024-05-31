@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="content" />
+  <button id="signBtn">sign</button>
+  <button id="verifyBtn">verify</button>
+  <span id="result"></span>
+
+  <button id="getContents">Get Contents</button>
+  <span id="contents"></span>
+
+  <script type = "module">
+    import { ethers, JsonRpcProvider } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.8.0/ethers.js";
+
+    const signBtn = document.getElementById("signBtn");
+    const verifyBtn = document.getElementById("verifyBtn");
+    const content = document.getElementById("content");
+    const result = document.getElementById("result");
+    const getContentsDom = document.getElementById("getContents");
+    const contents = document.getElementById("contents");
+
+
+    const contractAddress = '0x4E8E94dEd0E7786f5997235A92f93EbFA63F97A9';
+
+    signBtn.addEventListener(`click`, sign)
+    verifyBtn.addEventListener(`click`, verify)
+    getContentsDom.addEventListener(`click`, getContents)
+
+    // const { ethers, JsonRpcProvider } = require('ethers');
+    // 将合约部署在 hardhat node 本地链上
+    // const provider = new JsonRpcProvider();
+
+    // 这里我们使用 hardhat node 自带的地址进行签名
+    // const privateKey = `8f8a6912d287c273bede91f7597067c82b98ecd4fcedee5e43c6cbf96fe079b7`
+    // const wallet = new ethers.Wallet(privateKey, provider);
+    const abi = [
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "contents",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct EIP712Mail.Mail",
+            "name": "mail",
+            "type": "tuple"
+          },
+          {
+            "internalType": "address",
+            "name": "signer",
+            "type": "address"
+          },
+          {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32"
+          }
+        ],
+        "name": "verify",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "DOMAIN_SEPARATOR",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "EIP712DOMAIN_TYPEHASH",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "email",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "contents",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct EIP712Mail.Mail",
+            "name": "mail",
+            "type": "tuple"
+          }
+        ],
+        "name": "hashStruct",
+        "outputs": [
+          {
+            "internalType": "bytes32",
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      }
+    ]
+    let signParts = {}
+
+    // The data to sign
+    // 自行构造一个结构体的值
+    const value = {
+        from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+        to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+        contents: ''
+    };
+
+    async function sign() {
+        // 获得provider
+        const provider = new ethers.BrowserProvider(window.ethereum)
+        // 获取 chainId
+        const { chainId } = await provider.getNetwork();
+
+        // 构造 domain 结构体
+        // 最后一个地址字段，由于我们在合约中使用了 address(this)
+        // 因此需要在部署合约之后，将合约地址粘贴到这里
+        const domain = {
+            name: 'EIP712Mail',
+            version: '1',
+            chainId,
+            verifyingContract: contractAddress,
+        };
+        // The named list of all type definitions
+        // 构造签名结构体类型对象
+        const types = {
+            Mail: [
+                {name: 'from', type: 'address'},
+                {name: 'to', type: 'address'},
+                {name: 'contents', type: 'string'}
+            ]
+        };
+
+        value.contents = content.value
+        const signer = await provider.getSigner()
+        const signature = await signer.signTypedData(
+            domain,
+            types,
+            value
+        );
+
+        // 将签名分割成 v r s 的格式
+        signParts = ethers.Signature.from(signature);
+        console.log(">>> Signature:", signParts);
+
+        // 打印签名本身
+        console.log('signature: ', signature);
+    }
+
+    async function verify() {
+      // 获得provider
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      console.log('accounts', accounts)
+      const signer = await provider.getSigner(accounts[0])
+
+      value.contents = content.value
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+      contract.verify(
+        value,
+        accounts[0],
+        signParts.v,
+        signParts.r,
+        signParts.s,
+      ).then((vaild) => {
+        console.log('vaild', vaild)
+        result.innerHTML = vaild
+      }).catch((err) => {
+        console.error('err', err)
+      })
+    }
+
+    async function getContents() {
+      // 获得provider
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      const signer = await provider.getSigner(accounts[0])
+
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+      const vaild = await contract.email()
+      contents.innerHTML = vaild
+    }
+  </script>
+</body>
+</html>
