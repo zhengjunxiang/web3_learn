@@ -5,9 +5,7 @@ import ERC20Component from './ERC20Component'
 
 function App() {
   const getLibrary = (provider) => {
-    const library = new Web3Provider(provider, 'any')
-    library.pollingInterval = 15000
-    return library
+    return new Web3Provider(provider);
   }
 
   return (
