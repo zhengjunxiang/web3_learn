@@ -1,3 +1,4 @@
-[submodule "subject/subject/web3-dapp-all-example"]
-	path = subject/subject/web3-dapp-all-example
+
+[submodule "subject/web3-dapp-all-example"]
+	path = subject/web3-dapp-all-example
 	url = git@github.com:jackchen0120/web3-dapp-all-example.git
