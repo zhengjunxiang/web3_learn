@@ -12,7 +12,6 @@ node_modules
 # production
 /build
 
-/subject/web3-dapp-all-example
 # misc
 .DS_Store
 .env
